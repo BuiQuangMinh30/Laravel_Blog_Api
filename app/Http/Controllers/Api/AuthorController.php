@@ -82,7 +82,7 @@ class AuthorController extends Controller
         if ($validator->fails()) {
             return Response::json(['errors' => $validator->getMessageBag()->toArray()]);
         } else {
-            if (Auth::attemp(['email' => $request->email, 'password' => $request->password])) {
+            if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
                 $author = $request->user();
                 $author->api_token = Str::random(80);
                 $author->save();

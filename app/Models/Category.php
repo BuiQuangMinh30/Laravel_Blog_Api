@@ -9,7 +9,11 @@ use App\Models\Post;
 class Category extends Model
 {
     use HasFactory;
-    protected $table ='categories';
+    protected $table ='category';
+    protected $fillable = [
+        'title',
+        'slug'
+    ];
 
     public function post(){
         return $this->hasMany(Post::class);

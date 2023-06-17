@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Validator;
 use Response;
 use App\Http\Resources\CategoryResource;
@@ -21,8 +22,8 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $validators = Validator::make($request->all(), [
-            'title' => 'required|unique:categories',
-            'slug' => 'required|unique:categories'
+            'title' => 'required',
+            'slug' => 'required'
         ]);
         if($validators->fails())
         {
@@ -32,7 +33,7 @@ class CategoryController extends Controller
         }else {
             $category = new Category();
             $category->title = $request->title;
-            $category->slug=strtolower(implode('-', explode(' ',$request->slug)));
+            $category->slug=strtolower(implode('-',explode(' ',$request->slug)));
             $category->save();
 
             return Response::json(['success'=>'Category created successfully']);
@@ -49,17 +50,17 @@ class CategoryController extends Controller
         }
     }
 
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
         $validators= Validator::make($request->all(), [
-            'title' => ['required', Rule::unique('categories')->ignore($request->id)],
-            'slug' => ['required', Rule::unique('categories')->ignore($request->id)],
+            'title' => ['required'],
+            'slug' => ['required'],
         ]);
 
         if($validators->fails()){
             return Response::json(['errors' => $validators->getMessageBag()->toArray()]);
         }else{
-            $category= Category::findOrFail($request->id);
+            $category= Category::findOrFail($id);
             $category->title =$request->title;
             $category->slug= strtolower(implode('-',explode(' ', $request->slug)));
             $category->save();
