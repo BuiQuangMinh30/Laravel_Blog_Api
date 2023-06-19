@@ -30,12 +30,8 @@ Route::post('logout',[AuthorController::class, 'logout'])->middleware('auth:api'
 
 /**********************************   Category Route Starts Here   *******************************************/
 Route::get('categories',[CategoryController::class, 'index']);
-// Route::post('category/check/title','CategoryController@checkTitle')->middleware('auth:api');
-// Route::post('category/check/slug','CategoryController@checkSlug')->middleware('auth:api');
 Route::post('category/store',[CategoryController::class, 'store'])->middleware('auth:api');
 Route::get('category/{id}/show',[CategoryController::class, 'show']);
-// Route::post('category/edit/check/title','CategoryController@checkEditTitle')->middleware('auth:api');
-// Route::post('category/edit/check/slug','CategoryController@checkEditSlug')->middleware('auth:api');
 Route::post('category/{id}/update',[CategoryController::class, 'update'])->middleware('auth:api');
 Route::post('category/{id}/remove',[CategoryController::class, 'remove'])->middleware('auth:api');
 Route::get('category/{keyword}/search',[CategoryController::class,'searchCategory' ]);
