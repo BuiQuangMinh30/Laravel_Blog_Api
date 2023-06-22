@@ -20,8 +20,10 @@ class PostResource extends JsonResource
             'title'=>$this->title,
             'body'=>$this->body,
             'category_title'=>$this->category->title,
-            'category'=>$this->category_id,
-            'author'=>$this->author->name
+            'category_id'=>$this->category->id,
+            'author'=>$this->author->name,
+            'author_id'=>$this->author->id,
+            'comments'=> $this->comment
         ];
     }
 }
